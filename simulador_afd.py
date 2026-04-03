@@ -18,6 +18,11 @@ _graphviz_path = r"C:\Program Files\Graphviz\bin"
 if os.path.isdir(_graphviz_path) and _graphviz_path not in os.environ.get("PATH", ""):
     os.environ["PATH"] = _graphviz_path + os.pathsep + os.environ.get("PATH", "")
 
+# Agregar Graphviz al PATH en macOS (Homebrew x86_64 y arm64) si no está en el PATH de Python
+for _mac_path in ("/opt/homebrew/bin", "/usr/local/bin"):
+    if os.path.isdir(_mac_path) and _mac_path not in os.environ.get("PATH", ""):
+        os.environ["PATH"] = _mac_path + os.pathsep + os.environ.get("PATH", "")
+
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FUNCIONES DE ENTRADA / DEFINICIÓN DEL AUTÓMATA
@@ -181,7 +186,7 @@ def mostrar_resultado(cadena, camino, aceptada, error):
 # VISUALIZACIÓN CON GRAPHVIZ
 # ═══════════════════════════════════════════════════════════════════════════════
 
-def generar_diagrama(afd, nombre_archivo="automata", directorio="."):
+def generar_diagrama(afd, nombre_archivo="afd", directorio="."):
     """
     Genera un diagrama estilo académico del AFD y lo guarda como PNG.
     - Estados como círculos
@@ -242,7 +247,7 @@ def generar_diagrama(afd, nombre_archivo="automata", directorio="."):
     return f"{ruta_completa}.png"
 
 
-def generar_diagrama_con_camino(afd, camino, nombre_archivo="automata_camino", directorio="."):
+def generar_diagrama_con_camino(afd, camino, nombre_archivo="afd_simulacion", directorio="."):
     """
     Genera el diagrama del AFD resaltando en rojo el camino recorrido
     durante la simulación.

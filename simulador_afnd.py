@@ -20,6 +20,10 @@ _graphviz_path = r"C:\Program Files\Graphviz\bin"
 if os.path.isdir(_graphviz_path) and _graphviz_path not in os.environ.get("PATH", ""):
     os.environ["PATH"] = _graphviz_path + os.pathsep + os.environ.get("PATH", "")
 
+# Agregar Graphviz al PATH en macOS (Homebrew x86_64 y arm64) si no está en el PATH de Python
+for _mac_path in ("/opt/homebrew/bin", "/usr/local/bin"):
+    if os.path.isdir(_mac_path) and _mac_path not in os.environ.get("PATH", ""):
+        os.environ["PATH"] = _mac_path + os.pathsep + os.environ.get("PATH", "")
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FUNCIONES DE ENTRADA / DEFINICIÓN DEL AUTÓMATA
